@@ -1,0 +1,24 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["customer_support_tickets"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.143.878.0 (25.05)+b20aa3b866ec1b70879135a4e60e4b1301c75b21
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table customer_support_tickets
+ref table DateTableTemplate_9d9bc5e1-2ea9-4f7a-88d2-2b7adcfa86a6
+ref table LocalDateTable_273e8489-e90e-4e31-b576-611c49fff999
+ref table LocalDateTable_f28847c7-048c-4032-bd0f-cef22709c98a
+ref table LocalDateTable_13155a98-67db-4f25-80d7-f2771d087add
+
+ref cultureInfo en-US
+

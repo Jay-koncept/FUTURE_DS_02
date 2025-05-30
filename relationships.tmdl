@@ -1,0 +1,15 @@
+relationship 9feb7c33-11cd-4e98-adca-4e8ce352f4a7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_support_tickets.'Date of Purchase'
+	toColumn: LocalDateTable_273e8489-e90e-4e31-b576-611c49fff999.Date
+
+relationship 8555a262-0f66-4ad8-b862-9e8a0f6d6180
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_support_tickets.'First Response Time'
+	toColumn: LocalDateTable_f28847c7-048c-4032-bd0f-cef22709c98a.Date
+
+relationship 692a812f-9ad1-489f-a36f-d5157dd83668
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_support_tickets.'Time to Resolution'
+	toColumn: LocalDateTable_13155a98-67db-4f25-80d7-f2771d087add.Date
+

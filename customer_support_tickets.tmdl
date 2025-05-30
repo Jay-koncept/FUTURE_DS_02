@@ -1,0 +1,181 @@
+table customer_support_tickets
+	lineageTag: 19362531-2a0d-437d-822f-868524bd25e1
+
+	column 'Ticket ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b1bf711-03b9-4ee1-be3e-cee375e9fba1
+		summarizeBy: count
+		sourceColumn: Ticket ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: 55b3e48d-b2dd-43b5-a5ec-d0b136feee4d
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Email'
+		dataType: string
+		lineageTag: 437bec23-23b0-4f99-a18d-9a614030b181
+		summarizeBy: none
+		sourceColumn: Customer Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Age'
+		dataType: int64
+		formatString: 0
+		lineageTag: b322ab64-2f27-4184-b34a-71b87437978d
+		summarizeBy: sum
+		sourceColumn: Customer Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Gender'
+		dataType: string
+		lineageTag: 26349d12-8b00-4225-9451-b98bc6e36b3c
+		summarizeBy: none
+		sourceColumn: Customer Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Purchased'
+		dataType: string
+		lineageTag: 2615c109-3c9f-42ef-b725-04e1c0e0e573
+		summarizeBy: none
+		sourceColumn: Product Purchased
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date of Purchase'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8d4d0c58-3d3d-4ad6-90ca-64758a61faf9
+		summarizeBy: none
+		sourceColumn: Date of Purchase
+
+		variation Variation
+			isDefault
+			relationship: 9feb7c33-11cd-4e98-adca-4e8ce352f4a7
+			defaultHierarchy: LocalDateTable_273e8489-e90e-4e31-b576-611c49fff999.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ticket Type'
+		dataType: string
+		lineageTag: dfbcaf3e-46b5-4af7-adc2-2799604533dd
+		summarizeBy: none
+		sourceColumn: Ticket Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ticket Subject'
+		dataType: string
+		lineageTag: c29487dc-2656-4d09-9601-3b3f76a7ff9f
+		summarizeBy: none
+		sourceColumn: Ticket Subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ticket Description'
+		dataType: string
+		lineageTag: eef68ff6-a6e7-478f-89d2-45d0b5b3bbfa
+		summarizeBy: none
+		sourceColumn: Ticket Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ticket Status'
+		dataType: string
+		lineageTag: 4bb67f1c-eaec-41e6-83de-a4903b03c3c4
+		summarizeBy: none
+		sourceColumn: Ticket Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Resolution
+		dataType: string
+		lineageTag: 665059db-5566-4d42-b4e2-bf7d9b2250f2
+		summarizeBy: none
+		sourceColumn: Resolution
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ticket Priority'
+		dataType: string
+		lineageTag: a7b37b1b-819e-4d49-94b6-c7173bdf65f6
+		summarizeBy: none
+		sourceColumn: Ticket Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ticket Channel'
+		dataType: string
+		lineageTag: ce851244-e59d-41cc-a634-8623d1ebde6b
+		summarizeBy: none
+		sourceColumn: Ticket Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Response Time'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4f5ed4dd-06ae-44c4-a8bb-1a9327453870
+		summarizeBy: none
+		sourceColumn: First Response Time
+
+		variation Variation
+			isDefault
+			relationship: 8555a262-0f66-4ad8-b862-9e8a0f6d6180
+			defaultHierarchy: LocalDateTable_f28847c7-048c-4032-bd0f-cef22709c98a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Time to Resolution'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0aa9e4bd-a84f-4fe1-b24b-8aa66d501cf6
+		summarizeBy: none
+		sourceColumn: Time to Resolution
+
+		variation Variation
+			isDefault
+			relationship: 692a812f-9ad1-489f-a36f-d5157dd83668
+			defaultHierarchy: LocalDateTable_13155a98-67db-4f25-80d7-f2771d087add.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Satisfaction Rating'
+		dataType: int64
+		formatString: 0
+		lineageTag: b6c990b9-16e5-4c07-b55d-92de7f423226
+		summarizeBy: sum
+		sourceColumn: Customer Satisfaction Rating
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Ticket Status Hierarchy'
+		lineageTag: 6603cf29-d5b2-477a-a314-e8f5fcc93beb
+
+		level 'Ticket Status'
+			lineageTag: 85748974-3134-4617-a951-2f26b60f5421
+			column: 'Ticket Status'
+
+	partition customer_support_tickets = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\User\Desktop\archive\customer_support_tickets.csv"),[Delimiter=",", Columns=17, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Ticket ID", Int64.Type}, {"Customer Name", type text}, {"Customer Email", type text}, {"Customer Age", Int64.Type}, {"Customer Gender", type text}, {"Product Purchased", type text}, {"Date of Purchase", type date}, {"Ticket Type", type text}, {"Ticket Subject", type text}, {"Ticket Description", type text}, {"Ticket Status", type text}, {"Resolution", type text}, {"Ticket Priority", type text}, {"Ticket Channel", type text}, {"First Response Time", type datetime}, {"Time to Resolution", type datetime}, {"Customer Satisfaction Rating", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
